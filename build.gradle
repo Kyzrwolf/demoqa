@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'demo.qa'
+version = '1.0'
+
+dependencies {
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter:5.10.1',
+            'com.codeborne:selenide:6.19.1'
+    )
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+
