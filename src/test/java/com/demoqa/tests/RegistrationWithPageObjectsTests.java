@@ -1,15 +1,17 @@
-package demo.qa;
+package com.demoqa.tests;
 
 import org.junit.jupiter.api.Test;
-import pages.RegistrationPage;
+import com.demoqa.pages.RegistrationPage;
 
-public class RegistrationWithPageObjectsTests extends Configuration {
+public class RegistrationWithPageObjectsTests extends BaseTest {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
     void successfulRegistrationTest() {
-        registrationPage.openPage()
+        registrationPage
+                .openPage()
+                .removeBanners()
                 .setFirstName("Vasiliy")
                 .setLastName("Pupkin")
                 .setEmail("VasiliyPupkin@mail.ru")
@@ -41,12 +43,13 @@ public class RegistrationWithPageObjectsTests extends Configuration {
     void minRequiredFieldsRegistrationTest() {
         registrationPage
                 .openPage()
+                .removeBanners()
                 .setFirstName("Helen")
                 .setLastName("Head")
                 .setGender("Female")
                 .setPhoneNumber("8800555353")
                 .clickSubmitButton()
-                .checkModalWindow();;
+                .checkModalWindow();
 
         registrationPage
                 .checkResults("Student Name", "Helen Head")
@@ -58,6 +61,7 @@ public class RegistrationWithPageObjectsTests extends Configuration {
     void negativeRegistrationTest() {
         registrationPage
                 .openPage()
+                .removeBanners()
                 .setFirstName("1111111111111111111111")
                 .setLastName("")
                 .setPhoneNumber("                   ")

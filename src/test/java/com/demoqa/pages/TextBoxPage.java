@@ -1,11 +1,10 @@
-package pages;
+package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import pages.components.OutputFormComponent;
+import com.demoqa.pages.components.OutputFormComponent;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
@@ -24,8 +23,6 @@ public class TextBoxPage {
     public TextBoxPage openpage() {
         open("/text-box");
         $(".main-header").shouldHave(text("Text Box"));
-        executeJavaScript("$('footer').remove()");
-        executeJavaScript("$('#fixedban').remove()");
         return this;
     }
 
@@ -61,5 +58,11 @@ public class TextBoxPage {
    public TextBoxPage checkResults(String key, String value) {
         outputForm.checkField(key, value);
         return this;
+   }
+
+   public TextBoxPage removeBanners() {
+       executeJavaScript("$('footer').remove()");
+       executeJavaScript("$('#fixedban').remove()");
+       return this;
    }
 }

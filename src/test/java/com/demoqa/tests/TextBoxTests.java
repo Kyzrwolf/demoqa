@@ -1,14 +1,9 @@
-package demo.qa;
-
+package com.demoqa.tests;
 
 import org.junit.jupiter.api.Test;
-import pages.TextBoxPage;
+import com.demoqa.pages.TextBoxPage;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-
-public class TextBoxTests extends Configuration {
+public class TextBoxTests extends BaseTest {
 
     TextBoxPage textBoxPage = new TextBoxPage();
 
@@ -16,6 +11,7 @@ public class TextBoxTests extends Configuration {
     void fillFormTest() {
     textBoxPage
             .openpage()
+            .removeBanners()
             .setFullName("Marcus Aurelius")
             .setEmail("Dictator@gmail.com")
             .setCurrentAddress("Rome, Via del Corso, 20")

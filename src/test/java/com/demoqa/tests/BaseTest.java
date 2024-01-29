@@ -1,8 +1,8 @@
-package demo.qa;
+package com.demoqa.tests;
 
 import org.junit.jupiter.api.BeforeAll;
 
-public class Configuration {
+public class BaseTest {
 
     @BeforeAll
     static void configuration() {

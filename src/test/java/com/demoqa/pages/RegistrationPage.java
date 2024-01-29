@@ -1,8 +1,8 @@
-package pages;
+package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import pages.components.CalendarComponent;
-import pages.components.ModalWindowComponent;
+import com.demoqa.pages.components.CalendarComponent;
+import com.demoqa.pages.components.ModalWindowComponent;
 
 import java.util.Arrays;
 
@@ -33,8 +33,6 @@ public class RegistrationPage {
 public RegistrationPage openPage() {
     open("/automation-practice-form");
     $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-    executeJavaScript("$('footer').remove()");
-    executeJavaScript("$('#fixedban').remove()");
     return this;
 }
 
@@ -114,6 +112,12 @@ public RegistrationPage openPage() {
 
     public RegistrationPage checkResults(String key, String value){
         resultTable.checkField(key, value);
+        return this;
+    }
+
+    public RegistrationPage removeBanners() {
+        executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('#fixedban').remove()");
         return this;
     }
 }
