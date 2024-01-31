@@ -12,13 +12,12 @@ version = '1.0'
 dependencies {
     testImplementation(
             'org.junit.jupiter:junit-jupiter:5.10.1',
-            'com.codeborne:selenide:6.19.1'
+            'com.codeborne:selenide:6.19.1',
+            'com.github.javafaker:javafaker:1.0.2'
     )
 }
 
 test {
     useJUnitPlatform()
 }
-
-
 

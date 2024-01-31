@@ -3,7 +3,7 @@ package com.demoqa.tests;
 import org.junit.jupiter.api.Test;
 import com.demoqa.pages.TextBoxPage;
 
-public class TextBoxTests extends BaseTest {
+public class TextBoxTests extends TestBase {
 
     TextBoxPage textBoxPage = new TextBoxPage();
 

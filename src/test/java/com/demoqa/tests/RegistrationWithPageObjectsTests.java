@@ -1,70 +1,78 @@
 package com.demoqa.tests;
 
+import com.github.javafaker.Faker;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import com.demoqa.pages.RegistrationPage;
 
-public class RegistrationWithPageObjectsTests extends BaseTest {
+
+public class RegistrationWithPageObjectsTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
-    void successfulRegistrationTest() {
+    @DisplayName("Проверка успешной регистрации студента")
+    void successfulRegistrationTest() throws InterruptedException {
         registrationPage
                 .openPage()
                 .removeBanners()
-                .setFirstName("Vasiliy")
-                .setLastName("Pupkin")
-                .setEmail("VasiliyPupkin@mail.ru")
-                .setGender("Male")
-                .setPhoneNumber("7912345678")
-                .setDateOfBirth("022","September","1984")
-                .setSubjects("English", "Maths")
-                .setHobbies("Sports","Reading","Music")
-                .uploadPicture("1606135682168725538.jpg")
-                .setCurrentAddress("Lenina street 54")
-                .setStateAndCity("Rajasthan", "Jaipur")
+                .setFirstName(TestData.firstName)
+                .setLastName(TestData.lastName)
+                .setEmail(TestData.email)
+                .setGender(TestData.gender)
+                .setPhoneNumber(TestData.phoneNumber)
+                .setDateOfBirth(TestData.addLeadingZeroes(TestData.DateOfBirth),TestData.month,TestData.year)
+                .setSubjects(TestData.subjects)
+                .setHobbies(TestData.randomHobbies)
+                .uploadPicture(TestData.picturePath)
+                .setCurrentAddress(TestData.currentAddress)
+                .setStateAndCity(TestData.state, TestData.city)
                 .clickSubmitButton()
                 .checkModalWindow();
 
+        Thread.sleep(5000);
+
         registrationPage
-                .checkResults("Student Name", "Vasiliy Pupkin")
-                .checkResults("Student Email", "VasiliyPupkin@mail.ru")
-                .checkResults("Gender","Male")
-                .checkResults("Mobile","7912345678")
-                .checkResults("Date of Birth","22 September,1984")
-                .checkResults("Subjects","English, Maths")
-                .checkResults("Hobbies","Sports, Reading, Music")
-                .checkResults("Picture","1606135682168725538.jpg")
-                .checkResults("Address","Lenina street 54")
-                .checkResults("State and City","Rajasthan Jaipur");
+                .checkResults("Student Name", TestData.firstName + " " + TestData.lastName)
+                .checkResults("Student Email", TestData.email)
+                .checkResults("Gender",TestData.gender)
+                .checkResults("Mobile",TestData.phoneNumber)
+                .checkResults("Date of Birth",TestData.addLeadingZero(TestData.DateOfBirth) + " " + TestData.month + "," + TestData.year)
+                .checkResults("Subjects", TestData.trimArray(TestData.subjects))
+                .checkResults("Hobbies",TestData.trimArray(TestData.randomHobbies))
+                .checkResults("Picture",TestData.picturePath)
+                .checkResults("Address",TestData.currentAddress)
+                .checkResults("State and City",TestData.state + " " + TestData.city);
     }
 
     @Test
+    @DisplayName("Проверка успешной регистрации с минимальными данными")
     void minRequiredFieldsRegistrationTest() {
         registrationPage
                 .openPage()
                 .removeBanners()
-                .setFirstName("Helen")
-                .setLastName("Head")
-                .setGender("Female")
-                .setPhoneNumber("8800555353")
+                .setFirstName(TestData.firstName)
+                .setLastName(TestData.lastName)
+                .setGender(TestData.gender)
+                .setPhoneNumber(TestData.phoneNumber)
                 .clickSubmitButton()
                 .checkModalWindow();
 
         registrationPage
-                .checkResults("Student Name", "Helen Head")
-                .checkResults("Gender","Female")
-                .checkResults("Mobile","8800555353");
+                .checkResults("Student Name", TestData.firstName + " " + TestData.lastName)
+                .checkResults("Gender",TestData.gender)
+                .checkResults("Mobile",TestData.phoneNumber);
     }
 
     @Test
+    @DisplayName("Проверка не успешной регистрации")
     void negativeRegistrationTest() {
         registrationPage
                 .openPage()
                 .removeBanners()
-                .setFirstName("1111111111111111111111")
+                .setFirstName(String.valueOf(Faker.instance().funnyName()))
                 .setLastName("")
-                .setPhoneNumber("                   ")
+                .setPhoneNumber("")
                 .clickSubmitButton()
                 .checkModalWindowNotVisible();
     }
