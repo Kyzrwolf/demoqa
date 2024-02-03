@@ -1,8 +1,6 @@
 package com.demoqa.utils;
 
 import com.github.javafaker.Faker;
-import com.demoqa.tests.SchoolSubjects;
-
 import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
@@ -35,8 +33,7 @@ public class RandomUtils {
     }
 
     public String getRandomPhone() {
-        return String.format("7%s%s%s%s",
-                getRandomInt(900,999),getRandomInt(10,99),getRandomInt(10,99),getRandomInt(10,99));
+        return faker.phoneNumber().subscriberNumber(10);
     }
 
     public LocalDate getRandomDate() {
@@ -47,21 +44,8 @@ public class RandomUtils {
     }
 
 
-    public String[] getRandomSubject() {
-        SchoolSubjects[] allSubjects = SchoolSubjects.values();
-        int numberOfSubjects = getRandomInt(1, allSubjects.length - 1);
-        // Создаем список для хранения уникальных предметов
-        List<String> uniqueSubjectsList = new ArrayList<>();
-
-        while (uniqueSubjectsList.size() < numberOfSubjects) {
-            int randomIndex = getRandomInt(0,allSubjects.length - 1);
-            String randomSubject = allSubjects[randomIndex].toString();
-
-            if (!uniqueSubjectsList.contains(randomSubject)) {
-                uniqueSubjectsList.add(randomSubject);
-            }
-        }
-        return uniqueSubjectsList.toArray(new String[0]);
+    public String getRandomSubject(String[] subjects) {
+       return faker.options().option(subjects);
     }
 
     public String getRandomAddress() {
