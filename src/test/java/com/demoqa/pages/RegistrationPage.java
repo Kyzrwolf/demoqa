@@ -123,6 +123,10 @@ public class RegistrationPage {
     }
     @Step("Удалить баннеры")
     public RegistrationPage removeBanners() {
+        SelenideElement bannerRoot = $(".fc-consent-root");
+        if (bannerRoot.is(visible)) {
+            bannerRoot.$(byText("Consent")).click();
+        }
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
         return this;
