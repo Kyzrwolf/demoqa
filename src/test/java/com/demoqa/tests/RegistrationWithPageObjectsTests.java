@@ -1,7 +1,11 @@
 package com.demoqa.tests;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
 import com.github.javafaker.Faker;
+import io.qameta.allure.*;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import com.demoqa.pages.RegistrationPage;
 
@@ -12,8 +16,15 @@ public class RegistrationWithPageObjectsTests extends TestBase {
     TestData testData = new TestData();
 
     @Test
+    @Feature("Registration")
+    @Story("Registration page")
+    @Owner("Seningv")
+    @Severity(SeverityLevel.BLOCKER)
+    @Tag("Smoke")
     @DisplayName("Проверка успешной регистрации студента")
     void successfulRegistrationTest() throws InterruptedException {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         registrationPage
                 .openPage()
                 .removeBanners()
@@ -30,6 +41,7 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .setStateAndCity(testData.state, testData.city)
                 .clickSubmitButton()
                 .checkModalWindow();
+        registrationPage.addPageSource();
 
         Thread.sleep(5000);
 
@@ -39,16 +51,26 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .checkResults("Gender",testData.gender)
                 .checkResults("Mobile",testData.phoneNumber)
                 .checkResults("Date of Birth",testData.addLeadingZero(testData.DateOfBirth) + " " + testData.month + "," + testData.year)
-                .checkResults("Subjects", testData.trimArray(testData.subjects))
+                .checkResults("Subjects", testData.subject)
                 .checkResults("Hobbies",testData.trimArray(testData.randomHobbies))
                 .checkResults("Picture",testData.picturePath)
                 .checkResults("Address",testData.currentAddress)
                 .checkResults("State and City",testData.state + " " + testData.city);
+
+        registrationPage.takeScreenshot();
+        registrationPage.addPageSource();
     }
 
     @Test
+    @Feature("Registration")
+    @Story("Registration page")
+    @Owner("Seningv")
+    @Severity(SeverityLevel.CRITICAL)
+    @Tag("Smoke")
     @DisplayName("Проверка успешной регистрации с минимальными данными")
     void minRequiredFieldsRegistrationTest() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         registrationPage
                 .openPage()
                 .removeBanners()
@@ -59,15 +81,26 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .clickSubmitButton()
                 .checkModalWindow();
 
+        registrationPage.addPageSource();
+
         registrationPage
                 .checkResults("Student Name", testData.firstName + " " + testData.lastName)
                 .checkResults("Gender",testData.gender)
                 .checkResults("Mobile",testData.phoneNumber);
+
+        registrationPage.takeScreenshot();
     }
 
     @Test
+    @Feature("Registration")
+    @Story("Registration page")
+    @Owner("Seningv")
+    @Severity(SeverityLevel.NORMAL)
+    @Tag("Smoke")
     @DisplayName("Проверка не успешной регистрации")
     void negativeRegistrationTest() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         registrationPage
                 .openPage()
                 .removeBanners()
@@ -76,5 +109,8 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .setPhoneNumber("")
                 .clickSubmitButton()
                 .checkModalWindowNotVisible();
+
+        registrationPage.addPageSource();
+        registrationPage.takeScreenshot();
     }
 }
