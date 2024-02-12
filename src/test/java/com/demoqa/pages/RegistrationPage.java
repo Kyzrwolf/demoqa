@@ -128,13 +128,5 @@ public class RegistrationPage {
         return this;
     }
 
-    @Attachment(value = "Screenshot", type = "image/png", fileExtension = "png")
-    public byte[] takeScreenshot() {
-        return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
-    }
-
-    public void addPageSource() {
-        attachment("Source", webdriver().driver().source());
-    }
 }
 

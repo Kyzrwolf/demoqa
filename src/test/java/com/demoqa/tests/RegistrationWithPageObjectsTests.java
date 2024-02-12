@@ -1,12 +1,11 @@
 package com.demoqa.tests;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
+import com.demoqa.helpers.Attach;
 import com.github.javafaker.Faker;
 import io.qameta.allure.*;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import com.demoqa.pages.RegistrationPage;
 
 
@@ -14,6 +13,14 @@ public class RegistrationWithPageObjectsTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
     TestData testData = new TestData();
+
+    @AfterEach
+    public void AttachFiles(){
+        Attach.screenshotAs("ModalWindow");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+    }
 
     @Test
     @Feature("Registration")
@@ -41,9 +48,6 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .setStateAndCity(testData.state, testData.city)
                 .clickSubmitButton()
                 .checkModalWindow();
-        registrationPage.addPageSource();
-
-        Thread.sleep(5000);
 
         registrationPage
                 .checkResults("Student Name", testData.firstName + " " + testData.lastName)
@@ -57,8 +61,6 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .checkResults("Address",testData.currentAddress)
                 .checkResults("State and City",testData.state + " " + testData.city);
 
-        registrationPage.takeScreenshot();
-        registrationPage.addPageSource();
     }
 
     @Test
@@ -81,14 +83,11 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .clickSubmitButton()
                 .checkModalWindow();
 
-        registrationPage.addPageSource();
-
         registrationPage
                 .checkResults("Student Name", testData.firstName + " " + testData.lastName)
                 .checkResults("Gender",testData.gender)
                 .checkResults("Mobile",testData.phoneNumber);
 
-        registrationPage.takeScreenshot();
     }
 
     @Test
@@ -110,7 +109,7 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .clickSubmitButton()
                 .checkModalWindowNotVisible();
 
-        registrationPage.addPageSource();
-        registrationPage.takeScreenshot();
+
     }
+
 }
