@@ -6,9 +6,13 @@ import com.demoqa.pages.components.CalendarComponent;
 import com.demoqa.pages.components.ModalWindowComponent;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Condition.*;
@@ -34,12 +38,16 @@ public class RegistrationPage {
             currentAddressInput = $("#currentAddress"),
             stateCityWrapper = $("#stateCity-wrapper"),
             submitButton = $("#submit"),
-            modalWindow = $(".modal-dialog");
+            modalWindow = $(".modal-dialog"),
+            formWrapper = $(".practice-form-wrapper");
 
     @Step("Открыть страницу регистрации")
     public RegistrationPage openPage() {
         open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        formWrapper.shouldHave(text("Student Registration Form"));
+        new WebDriverWait(WebDriverRunner.getWebDriver(), Duration.of(3000, ChronoUnit.SECONDS)).until(
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        $("#fixedban").shouldBe(visible);
         return this;
     }
     @Step("Установить имя {0}")
