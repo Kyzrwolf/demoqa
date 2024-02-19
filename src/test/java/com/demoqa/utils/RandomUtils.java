@@ -53,7 +53,7 @@ public class RandomUtils {
     }
 
     public String getRandomPicture() {
-        File resourcesDir = new File("src/test/resources");
+        File resourcesDir = new File("src/test/resources/pictures");
         File[] files = resourcesDir.listFiles();
         if (files == null || files.length == 0) {
             throw new RuntimeException("В директории resources нет файлов");
