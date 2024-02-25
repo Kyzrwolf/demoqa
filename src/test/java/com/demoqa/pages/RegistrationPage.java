@@ -94,7 +94,7 @@ public class RegistrationPage {
     }
     @Step("Загрузить фото {0}")
     public RegistrationPage uploadPicture(String filename) {
-        uploadPictureButton.uploadFromClasspath(filename);
+        uploadPictureButton.uploadFromClasspath("pictures/" + filename);
         return this;
     }
     @Step("Установить адрес {0}")

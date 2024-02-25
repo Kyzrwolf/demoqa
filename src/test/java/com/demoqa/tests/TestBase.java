@@ -2,31 +2,48 @@ package com.demoqa.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import com.demoqa.config.DriverConfig;
+import com.demoqa.config.LocalConfig;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
 
-public class TestBase {
+import static java.lang.String.format;
 
+public class TestBase {
     @BeforeAll
     static void configuration() {
+        LocalConfig localConfig = ConfigFactory.create(LocalConfig.class);
+        DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
 
-        Configuration.browserSize = "1920x1080";
+        // запуск тестов локально
+        if (!localConfig.localMode()) {
+            Configuration.remote = System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl());
+        }
+        System.setProperty("stand", System.getProperty("stand", "stage"));
+        System.setProperty("block", System.getProperty("block", "b1"));
+        String stand = System.getProperty("stand", "stage");
+        String block = System.getProperty("block", "b1");
+        System.out.println(format("Running tests on:\n stand: %s\n block: %s\n", stand, block));
+
+        Configuration.browser = System.getProperty("browser", driverConfig.browserName());
+        Configuration.browserVersion = System.getProperty("browserVersion", driverConfig.browserVersion());
+        Configuration.browserSize = System.getProperty("browserSize", driverConfig.browserSize());
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
+        Configuration.pageLoadStrategy = "normal";
         Configuration.holdBrowserOpen = false;
         Configuration.timeout = 5000; // default 4000
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.of(
-                "enableVNC",true,
+                "enableVNC", true,
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
-
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 }
+

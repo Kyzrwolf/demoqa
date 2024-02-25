@@ -1,6 +1,8 @@
 package com.demoqa.tests;
 
+import com.demoqa.config.TestDataConfig;
 import com.demoqa.utils.RandomUtils;
+import org.aeonbits.owner.ConfigFactory;
 
 import java.time.Month;
 import java.util.Arrays;
@@ -10,10 +12,11 @@ import java.util.Map;
 
 public class TestData {
     private static final RandomUtils random = new RandomUtils();
+    TestDataConfig config = ConfigFactory.create(TestDataConfig.class);
 
-    String firstName = random.getRandomFirstName();
-    String lastName = random.getRandomLastName();
-    String email = random.getRandomEmail();
+    String firstName = config.firstName();
+    String lastName = config.lastName();
+    String email = config.email();
     String[] genders = {"Male", "Female", "Other"};
     String gender = random.getRandomGender(genders);
     String phoneNumber = random.getRandomPhone();

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.*;
 import com.demoqa.pages.RegistrationPage;
 
 
-public class RegistrationWithPageObjectsTests extends TestBase {
+public class RegistrationTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
     TestData testData = new TestData();
@@ -25,11 +25,11 @@ public class RegistrationWithPageObjectsTests extends TestBase {
     @Test
     @Feature("Registration")
     @Story("Registration page")
-    @Owner("Seningv")
+    @Owner("Senin")
     @Severity(SeverityLevel.BLOCKER)
     @Tag("Smoke")
     @DisplayName("Проверка успешной регистрации студента")
-    void successfulRegistrationTest() throws InterruptedException {
+    void successfulRegistrationTest() {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
         registrationPage
@@ -66,7 +66,7 @@ public class RegistrationWithPageObjectsTests extends TestBase {
     @Test
     @Feature("Registration")
     @Story("Registration page")
-    @Owner("Seningv")
+    @Owner("Senin")
     @Severity(SeverityLevel.CRITICAL)
     @Tag("Smoke")
     @DisplayName("Проверка успешной регистрации с минимальными данными")
@@ -93,7 +93,7 @@ public class RegistrationWithPageObjectsTests extends TestBase {
     @Test
     @Feature("Registration")
     @Story("Registration page")
-    @Owner("Seningv")
+    @Owner("Senin")
     @Severity(SeverityLevel.NORMAL)
     @Tag("Smoke")
     @DisplayName("Проверка не успешной регистрации")
