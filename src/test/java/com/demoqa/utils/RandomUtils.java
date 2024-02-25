@@ -56,18 +56,13 @@ public class RandomUtils {
     }
 
     public String getRandomPicture() {
-        URL picturesURL = getClass().getClassLoader().getResource("pictures");
-        if (picturesURL != null) {
-            File picturesDir = new File(picturesURL.getFile());
-            File[] pictures = picturesDir.listFiles();
-            if (pictures == null || pictures.length == 0) {
-                throw new RuntimeException(format("В директории %s нет файлов", picturesDir));
-            }
-            File randomPicture = faker.options().option(pictures);
-            return randomPicture.getName();
-        } else {
-            throw new RuntimeException("Папка pictures не найдена в classpath");
+        File resourcesDir = new File("src/test/resources/pictures");
+        File[] files = resourcesDir.listFiles();
+        if (files == null || files.length == 0) {
+            throw new RuntimeException("В директории resources нет файлов");
         }
+        File randomPicture = files[getRandomInt(0,files.length - 1)];
+        return randomPicture.getName();
     }
 
     public String[] getRandomHobbies(String[] hobbies) {
