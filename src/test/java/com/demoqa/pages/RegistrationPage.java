@@ -4,11 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import com.demoqa.pages.components.CalendarComponent;
 import com.demoqa.pages.components.ModalWindowComponent;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -18,14 +15,14 @@ import java.util.Arrays;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static io.qameta.allure.Allure.attachment;
+
 
 
 public class RegistrationPage {
 
-    private ModalWindowComponent resultTable = new ModalWindowComponent();
+    private final ModalWindowComponent resultTable = new ModalWindowComponent();
 
-    private SelenideElement
+    private final SelenideElement
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             emailInput = $("#userEmail"),

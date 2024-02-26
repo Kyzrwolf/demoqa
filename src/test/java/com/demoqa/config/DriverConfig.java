@@ -2,11 +2,14 @@ package com.demoqa.config;
 
 import org.aeonbits.owner.Config;
 
-@Config.Sources("classpath:config/driver.properties")
+@Config.Sources({
+        "system:properties",
+        "classpath:config/driver.properties"
+})
 public interface DriverConfig extends Config {
 
     @Key("browser.name")
-    @DefaultValue("Mozilla")
+    @DefaultValue("firefox")
     String browserName();
 
     @Key("browser.version")

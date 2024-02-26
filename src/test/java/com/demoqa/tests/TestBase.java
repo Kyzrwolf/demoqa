@@ -37,6 +37,14 @@ public class TestBase {
         Configuration.holdBrowserOpen = false;
         Configuration.timeout = 5000; // default 4000
 
+        String browser = System.getenv("browser");
+        String browserVersion = System.getenv("browserVersion");
+        String browserSize = System.getenv("browserSize");
+        System.out.println(format(
+                "Browser: %s\n" +
+                "browserSize: %s\n" +
+                "browserVersion: %s\n",browser,browserVersion,browserSize));
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
