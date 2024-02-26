@@ -43,7 +43,7 @@ public class TestBase {
         System.out.println(format(
                 "Browser: %s\n" +
                 "browserSize: %s\n" +
-                "browserVersion: %s\n",browser,browserVersion,browserSize));
+                "browserVersion: %s\n",browser,browserSize,browserVersion));
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.of(
