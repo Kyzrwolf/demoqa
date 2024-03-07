@@ -22,6 +22,11 @@ public class RegistrationTests extends TestBase {
         Attach.addVideo();
     }
 
+    @BeforeEach
+    void addAllureListener() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
     @Test
     @Feature("Registration")
     @Story("Registration page")
@@ -30,8 +35,6 @@ public class RegistrationTests extends TestBase {
     @Tag("Smoke")
     @DisplayName("Проверка успешной регистрации студента")
     void successfulRegistrationTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-
         registrationPage
                 .openPage()
                 .removeBanners()
@@ -71,8 +74,6 @@ public class RegistrationTests extends TestBase {
     @Tag("Smoke")
     @DisplayName("Проверка успешной регистрации с минимальными данными")
     void minRequiredFieldsRegistrationTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-
         registrationPage
                 .openPage()
                 .removeBanners()
@@ -98,8 +99,6 @@ public class RegistrationTests extends TestBase {
     @Tag("Smoke")
     @DisplayName("Проверка не успешной регистрации")
     void negativeRegistrationTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-
         registrationPage
                 .openPage()
                 .removeBanners()

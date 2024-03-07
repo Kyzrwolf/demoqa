@@ -19,10 +19,12 @@ public class TestBase {
         LocalConfig localConfig = ConfigFactory.create(LocalConfig.class);
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
 
-        // запуск тестов локально
         if (!localConfig.localMode()) {
             Configuration.remote = System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl());
+        } else {
+            System.out.println("Запуск тестов локально");
         }
+
         System.setProperty("stand", System.getProperty("stand", "stage"));
         System.setProperty("block", System.getProperty("block", "b1"));
         String stand = System.getProperty("stand", "stage");
