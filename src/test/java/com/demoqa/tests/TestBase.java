@@ -3,7 +3,6 @@ package com.demoqa.tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.demoqa.config.DriverConfig;
-import com.demoqa.config.LocalConfig;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,10 +15,9 @@ import static java.lang.String.format;
 public class TestBase {
     @BeforeAll
     static void configuration() {
-        LocalConfig localConfig = ConfigFactory.create(LocalConfig.class);
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
 
-        if (!localConfig.localMode()) {
+        if (!driverConfig.localMode()) {
             Configuration.remote = System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl());
         } else {
             System.out.println("Запуск тестов локально");

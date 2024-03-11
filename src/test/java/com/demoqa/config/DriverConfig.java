@@ -8,12 +8,15 @@ import org.aeonbits.owner.Config;
 })
 public interface DriverConfig extends Config {
 
+    @Key("local.mode")
+    @DefaultValue("false")
+    boolean localMode();
+
     @Key("browser.name")
-    @DefaultValue("firefox")
+    @DefaultValue("chrome")
     String browserName();
 
     @Key("browser.version")
-    @DefaultValue("null")
     String browserVersion();
 
     @Key("browser.size")
@@ -21,7 +24,6 @@ public interface DriverConfig extends Config {
     String browserSize();
 
     @Key("browser.remote.url")
-    @DefaultValue("null")
     String browserRemoteUrl();
 }
 
